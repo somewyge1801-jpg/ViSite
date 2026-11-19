@@ -8,7 +8,7 @@ import "./navigation.css";
 import { SiteHeader } from "@/components/site-header";
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
-  return <section id={id} tabIndex={-1} className="chapter"><h2>{title}</h2><div className="chapter-body">{children}</div></section>;
+  return <section id={id} tabIndex={-1} className="chapter"><div className="chapter-heading"><h2>{title}</h2>{id === "approach" && <figure className="garden-specimen"><Image src={settings.sculpture} width={400} height={400} alt="Объёмная ботаническая композиция с листьями и бутонами" /><figcaption>Эскиз объёмного сада</figcaption></figure>}</div><div className="chapter-body">{children}</div></section>;
 }
 function Paragraphs({ lines }: { lines: string[] }) {
   return lines.map(line => <p key={line}>{line}</p>);
@@ -31,7 +31,7 @@ export default function Home() {
           <div><Paragraphs lines={copy.about}/></div></div></Section>
         <Section id="education" title="Образование"><Paragraphs lines={copy.educationIntro}/><ol className="education-list">{copy.education.map(item=><li key={item}>{item}</li>)}</ol>
           <h3>{copy.supervision.title}</h3><Paragraphs lines={copy.supervision.body}/>
-          {settings.diplomas.length ? settings.diplomas.map(d=><a href={d.url} key={d.url}>{d.title}</a>) : <p className="quiet">Сканы дипломов готовятся к размещению.</p>}</Section>
+          {settings.diplomas.length ? settings.diplomas.map(d=><a className="diploma-link" href={d.url} key={d.url}>{d.thumbnail && <img src={d.thumbnail} alt="" loading="lazy" width="160" />}<span>{d.title}</span></a>) : <p className="quiet">Сканы дипломов готовятся к размещению.</p>}</Section>
         <Section id="approach" title="Запросы и подход"><h3>С чем ко мне можно обратиться</h3><ul className="requests">{copy.requests.map(line=><li key={line}>{line}</li>)}</ul><p>{copy.educationIntro[2]}</p></Section>
         <Section id="services" title="Услуги и цены"><div className="service-sheet"><h3>{copy.service.title}</h3><Paragraphs lines={copy.service.body}/><Booking/></div><h3>{copy.sessions.title}</h3><Paragraphs lines={copy.sessions.body}/></Section>
         <Section id="conditions" title="Условия и принципы">{copy.conditions.map(item=><details key={item.title}><summary>{item.title}</summary><Paragraphs lines={item.body}/></details>)}<h3>Принципы работы</h3>{copy.principles.map(item=><details key={item.title}><summary>{item.title}</summary><p>{item.body}</p></details>)}</Section>
@@ -45,7 +45,7 @@ export default function Home() {
             {available ? <a className="garden-action" href={product.checkout}>Купить за {product.price} ₽</a> : <button disabled>Продажи ещё не открыты</button>}
           </article>;
         })}</div></Section>
-        <Section id="materials" title="Материалы">{settings.materials.length ? settings.materials.map(item=><article key={item.url}><h3>{item.title}</h3><p>{item.description}</p><a href={item.url} download={item.download || undefined}>{item.download ? "Скачать бесплатно" : "Читать"}</a></article>) : <p>Здесь появятся публикации и бесплатные материалы для скачивания без регистрации.</p>}</Section>
+        <Section id="materials" title="Материалы">{settings.materials.length ? settings.materials.map(item=><article key={item.url}><h3>{item.title}</h3><p>{item.description}</p>{item.audio && <audio controls preload="none" aria-label={item.title} src={item.url} />}<a href={item.url} download={item.download || undefined}>{item.download ? "Скачать бесплатно" : "Читать"}</a></article>) : <p>Здесь появятся публикации и бесплатные материалы для скачивания без регистрации.</p>}</Section>
         <Section id="faq" title="Вопросы и ответы">{copy.faq.map(item=><details key={item.title}><summary>{item.title}</summary><p>{item.body}</p></details>)}</Section>
         <Section id="contacts" title="Контакты"><h3>Очные консультации</h3><p>{settings.address}</p><h3>Запись в Telegram</h3>{settings.telegram ? <Booking/> : <p>Онлайн-запись пока недоступна. Здесь появится ссылка на личный Telegram Виктории.</p>}
           {settings.publicChannel && <p><a href={settings.publicChannel}>Telegram-канал</a></p>}
@@ -56,6 +56,6 @@ export default function Home() {
         <Section id="documents" title="Документы">{settings.documents.length ? settings.documents.map(d=><p key={d.url}><a href={d.url}>{d.title}</a></p>) : <p>Условия оказания услуг, условия покупки и документы об обработке данных готовятся к размещению.</p>}</Section>
       </div>
     </main>
-    <footer className="garden-footer"><span>Виктория Горбачева · Тёплый сад</span><a href="#home">К началу</a><a href="#documents">Документы</a></footer>
+    <footer className="garden-footer"><span>© Виктория Горбачева · Тёплый сад</span><a href="#services">Консультации</a><a href="#products">Продукты</a><a href="#contacts">Контакты</a><a href="#home">К началу</a><a href="#documents">Документы</a></footer>
   </div>;
 }

@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { concepts, conceptIds } from "@/lib/concepts";
 
+export const metadata = { title: "Три концепции сада", description: "Сравнение визуальных концепций первого экрана.", robots: { index: false } };
+
 export default function Comparison() {
   return <main className="gallery">
     <header className="gallery-mast"><span className="wordmark">Тёплый сад</span><span>Виктория Горбачева · психолог</span></header>

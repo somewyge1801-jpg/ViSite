@@ -40,3 +40,9 @@
 .practice { overflow-wrap:anywhere; }
 .garden-letter,.chapter-body {min-width:0;}
 .practice .garden-action,.product button {max-width:100%;}
+.garden-specimen {max-width:18rem;margin:2rem auto 0;}
+.garden-specimen img {width:100%;border-radius:45% 45% 38% 38%;}
+.garden-specimen figcaption {text-align:center;}
+@media(max-width:850px){.chapter-heading:has(.garden-specimen){display:flex;align-items:center;justify-content:space-between;gap:1rem;}.garden-specimen {flex:0 0 25%;margin:0;}.garden-specimen figcaption {font-size:.75rem;}}
+.chapter-body audio {max-width:100%;}
+.diploma-link {min-height:44px;display:flex;align-items:center;gap:1rem;padding-block:.75rem;}

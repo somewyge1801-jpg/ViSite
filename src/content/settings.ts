@@ -1,10 +1,10 @@
 /** Only public, customer-approved URLs belong here. Rebuild after editing. */
 export const settings = {
   telegram: "", publicChannel: "", vk: "", instagram: "", supportEmail: "",
-  portrait: "", diplomas: [] as { title: string; url: string }[],
-  garden: "/garden/a.webp", botanical: "/garden/b.webp",
+  portrait: "", diplomas: [] as { title: string; url: string; thumbnail?: string }[],
+  sculpture: "/garden/c.webp", garden: "/garden/a.webp", botanical: "/garden/b.webp",
   address: "Саратов, ул. Советская, 60",
-  materials: [] as { title: string; description: string; url: string; download: boolean }[],
+  materials: [] as { title: string; description: string; url: string; download: boolean; audio?: boolean }[],
   documents: [] as { title: string; url: string }[],
   deliveryVerified: false,
   products: [
