@@ -42,3 +42,7 @@ html:has(#garden-menu[open]) {overflow:hidden;}
   @starting-style {#garden-menu[open] {opacity:0;transform:translateY(-.6rem);}}
 }
 html:has(.practice) { scrollbar-gutter:stable; }
+@media(max-width:63.99em){
+  .header-inner {display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;}
+  .personal-logo {max-width:10rem;min-width:0;margin:0;line-height:1.05;}
+}
