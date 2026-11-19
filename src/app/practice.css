@@ -37,3 +37,6 @@
 @media(max-width:850px){.chapter {grid-template-columns:minmax(0,1fr);} .bio {grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);}}
 @media(max-width:600px){.practice .garden-hero {align-items:start;padding:1rem .85rem 5rem;min-height:0;} .garden-letter {padding:1.3rem;background:#fcfaeff5;max-width:23rem;margin-left:0;} .garden-letter h1 {font-size:clamp(2.8rem,11vw,3.7rem);} .garden-letter p {margin-top:.65rem;} .bio,.product-pair {display:block;} .bio figure {width:55%;margin-bottom:1.3rem;} .product+.product {margin-top:2.5rem;}.garden-footer {gap:1rem;}}
 @media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){.practice .garden-action {transition:background-color .18s;} .practice .garden-action:hover {background:#496c4f;}.cover-study {transition:transform .25s;} .product:hover .cover-study {transform:rotate(-1deg);}}
+.practice { overflow-wrap:anywhere; }
+.garden-letter,.chapter-body {min-width:0;}
+.practice .garden-action,.product button {max-width:100%;}

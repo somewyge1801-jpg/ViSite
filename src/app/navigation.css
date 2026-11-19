@@ -1,0 +1,44 @@
+html:has(.practice) { scroll-padding-top: calc(var(--garden-header-height,5rem) + .85rem); scrollbar-gutter: stable; }
+.site-header { position:sticky; inset-block-start:0; z-index:20; padding-top:env(safe-area-inset-top); background:#faf8ee; color:#294433; border-bottom:1px solid #c5cbb9; }
+.site-header[data-scrolled="true"] { background:#fffdf5; box-shadow:0 4px 16px #25322217; }
+.header-inner { display:flex; align-items:center; flex-wrap:wrap; gap:.8rem; max-width:100rem; margin:auto; padding:.65rem max(1.25rem,env(safe-area-inset-right)) .65rem max(1.25rem,env(safe-area-inset-left)); }
+.personal-logo { margin-right:auto; font:600 clamp(1.7rem,2.4vw,2.6rem)/1 "Cormorant Garamond",Georgia,serif; letter-spacing:-.045em; display:inline-flex; align-items:center; min-height:44px; }
+.desktop-nav {display:flex;align-items:center;gap:.5rem;}
+.site-header nav a,.nav-group summary,.site-header button,.fallback-menu summary {min-height:44px;min-width:44px;padding:.45rem .7rem;display:flex;align-items:center;cursor:pointer;}
+.site-header summary {list-style:none;}
+.site-header summary::-webkit-details-marker {display:none;}
+.site-header nav a:hover,.nav-group summary:hover,.site-header [aria-current],.nav-group summary[data-active=true] {text-decoration:underline;text-underline-offset:.3em;}
+.nav-group {position:relative;}
+.nav-group summary::after {content:"";width:.42em;height:.42em;margin:0 .15rem .22rem .6rem;border:solid currentColor;border-width:0 1px 1px 0;transform:rotate(45deg);}
+.nav-group[open] summary::after {transform:rotate(225deg);}
+.nav-group>div,.fallback-menu nav {position:absolute;top:100%;right:0;min-width:14rem;padding:.55rem;background:#fffdf5;border:1px solid #bfccb8;border-radius:.6rem;box-shadow:0 8px 20px #25322217;}
+.header-book {border-radius:4rem;background:#354f39;color:white;padding:.55rem 1.15rem;min-height:44px;display:inline-flex;align-items:center;font-weight:500;}
+.site-header .menu-trigger,.site-header .fallback-menu {display:none;}
+.menu-trigger svg {display:block;}
+.garden-skip {position:absolute;top:0;left:1rem;background:white;padding:.5rem;transform:translateY(-150%);}
+.garden-skip:focus {transform:none;z-index:1;}
+#garden-menu {position:fixed;inset:0 0 auto;margin:0 auto 0 0;width:100%;max-width:100%;max-height:95dvh;border:0;padding:0;background:#faf9ef;color:#294433;overflow:auto;overscroll-behavior:contain;}
+#garden-menu::backdrop {background:#273a2d65;}
+html:has(#garden-menu[open]) {overflow:hidden;}
+.menu-sheet {padding: max(.8rem,env(safe-area-inset-top)) max(1.15rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) max(1.15rem,env(safe-area-inset-left));}
+.menu-title {display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.menu-title h2 {font:600 1.8rem "Cormorant Garamond",Georgia,serif;}
+.menu-title button {text-decoration:underline;}
+.menu-sheet nav {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));margin:.5rem 0;}
+.menu-sheet nav a {border-top:1px solid #ccd2c2;}
+@media(max-width:63.99em){
+  .desktop-nav {display:none;}
+  .header-inner {gap:.4rem;padding-block:.35rem;padding-inline:max(.75rem,env(safe-area-inset-left)) max(.75rem,env(safe-area-inset-right));}
+  .personal-logo {font-size:1.5rem;max-width:12ch;}
+  .header-book {font-size:.9rem;padding-inline:.8rem;}
+  .site-header .menu-trigger {display:inline-flex;justify-content:center;font-size:1.3rem;background:transparent;border:1px solid #b8c5ae;border-radius:50%;}
+  .site-header .fallback-menu {display:block;}
+  .fallback-menu nav {left:0;max-height:70dvh;overflow:auto;}
+}
+@media(prefers-reduced-motion:no-preference){
+  .site-header {transition:background-color .18s,box-shadow .18s;}
+  #garden-menu {opacity:0;transform:translateY(-.6rem);transition:opacity .16s,transform .16s,display .16s allow-discrete,overlay .16s allow-discrete;}
+  #garden-menu[open] {opacity:1;transform:none;}
+  @starting-style {#garden-menu[open] {opacity:0;transform:translateY(-.6rem);}}
+}
+html:has(.practice) { scrollbar-gutter:stable; }

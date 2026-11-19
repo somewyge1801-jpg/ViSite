@@ -34,12 +34,13 @@
 .prototype main { flex: 1; }
 .prototype h1 { text-wrap: balance; }
 .topbar,.foot { padding-inline: clamp(1.2rem,5vw,6rem); }
-.topbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; min-height: 4.7rem; border-bottom: 1px solid var(--line); position: relative; }
+.topbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; min-height: 4.7rem; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; background: var(--paper); }
+html:has(.prototype) { scroll-padding-top: 5.6rem; }
 .topbar nav { display: flex; gap: clamp(1rem,3vw,3.5rem); }
 .topbar nav a,.mobile-menu summary { display: flex; align-items: center; min-height: 44px; }
 .topbar a:hover,.booking-note a:hover { text-decoration: underline; }
 .mobile-menu { display: none; }
-.skip-link { position: absolute; z-index: 3; transform: translateY(-150%); background: white; color: black; padding: .6rem; }
+.skip-link { position: absolute; z-index: 30; transform: translateY(-150%); background: white; color: black; padding: .6rem; }
 .skip-link:focus { transform: none; }
 .foot { padding-block: .5rem; border-top: 1px solid var(--line); font-size: .9rem; }
 .art { margin: 0; }

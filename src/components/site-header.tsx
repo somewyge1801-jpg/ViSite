@@ -1,132 +1,129 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { booking } from "@/lib/concepts";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { bookingHref, sections } from "@/content/settings";
 
-const sections = [
-  { href: "#terms", label: "Формат и цена" },
-  { href: "#booking", label: "Запись" },
-  { href: "/concepts/", label: "Все концепции" },
+type SectionId = typeof sections[number][0];
+const names = Object.fromEntries(sections);
+const groups: { title: string; items: SectionId[] }[] = [
+  { title: "Практика", items: ["about", "education", "approach"] },
+  { title: "Консультации", items: ["services", "conditions", "faq"] },
+  { title: "Библиотека", items: ["products", "materials", "documents"] },
 ];
 
-type HeaderState = "static" | "top" | "scrolled";
-
 export function SiteHeader() {
-  const [state, setState] = useState<HeaderState>("static");
+  const header = useRef<HTMLElement>(null);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
-  const toggleRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
-  const isTelegram = Boolean(booking.telegramUrl);
-  const bookingHref = booking.telegramUrl ?? "#booking";
-  const externalLink = isTelegram ? { target: "_blank", rel: "noreferrer" } : {};
+  const [active, setActive] = useState<SectionId>("home");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    const bar = header.current!;
+    const root = document.documentElement;
+    const targets = sections.map(([id]) => document.getElementById(id)!);
     let frame = 0;
-    const sync = () => {
+    function update() {
       frame = 0;
-      setState(window.scrollY > 8 ? "scrolled" : "top");
-    };
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(sync);
-    };
-    sync();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    const panel = panelRef.current;
-    panel?.querySelector<HTMLElement>("a, button")?.focus();
-    const onKeyDown = (event: KeyboardEvent) => {
+      const bottom = bar.getBoundingClientRect().bottom + 24;
+      const current = targets.filter(section => section.getBoundingClientRect().top <= bottom).at(-1);
+      const atEnd = window.scrollY + window.innerHeight >= root.scrollHeight - 2;
+      const hash = location.hash.slice(1) as SectionId;
+      const atEndTarget = atEnd && names[hash] && document.getElementById(hash)!.getBoundingClientRect().top >= 0;
+      setActive(atEndTarget ? hash : atEnd ? "documents" : (current?.id as SectionId) || "home");
+      setScrolled(window.scrollY > 4);
+    }
+    function schedule() { if (!frame) frame = requestAnimationFrame(update); }
+    function measure() {
+      root.style.setProperty("--garden-header-height", bar.offsetHeight + "px");
+      schedule();
+    }
+    function closeGroups(keep?: Element | null) {
+      bar.querySelectorAll<HTMLDetailsElement>(".nav-group[open]").forEach(group => {
+        if (group !== keep) group.open = false;
+      });
+    }
+    function outside(event: PointerEvent) {
+      closeGroups((event.target as Element).closest(".nav-group"));
+    }
+    function focus(event: FocusEvent) {
+      closeGroups((event.target as Element).closest(".nav-group"));
+    }
+    function escape(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
-      event.preventDefault();
-      setOpen(false);
-      toggleRef.current?.focus();
-    };
-    const onPointerDown = (event: PointerEvent) => {
-      const target = event.target as Node | null;
-      if (!target) return;
-      if (panel?.contains(target) || toggleRef.current?.contains(target)) return;
-      setOpen(false);
-    };
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("pointerdown", onPointerDown);
+      const group = bar.querySelector<HTMLDetailsElement>(".nav-group[open]");
+      if (group) { group.open = false; group.querySelector("summary")?.focus(); }
+    }
+    const desktop = matchMedia("(min-width: 64em)");
+    const onResize = () => { if (desktop.matches) dialog.current?.close(); closeGroups(); };
+    desktop.addEventListener("change", onResize);
+    document.addEventListener("pointerdown", outside);
+    document.addEventListener("focusin", focus);
+    document.addEventListener("keydown", escape);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("hashchange", schedule);
+    const observer = new ResizeObserver(measure);
+    observer.observe(bar);
+    measure();
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("pointerdown", onPointerDown);
+      cancelAnimationFrame(frame); observer.disconnect(); root.style.removeProperty("--garden-header-height");
+      desktop.removeEventListener("change", onResize);
+      document.removeEventListener("pointerdown", outside);
+      document.removeEventListener("focusin", focus);
+      document.removeEventListener("keydown", escape);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("hashchange", schedule);
     };
-  }, [open]);
-
-  useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 861px)");
-    const closeOnDesktop = () => {
-      if (desktop.matches) setOpen(false);
-    };
-    desktop.addEventListener("change", closeOnDesktop);
-    return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
 
-  const closeMenu = () => setOpen(false);
+  useEffect(() => {
+    const el = dialog.current;
+    if (!el) return;
+    const sync = () => setOpen(el.open);
+    el.addEventListener("close", sync);
+    return () => el.removeEventListener("close", sync);
+  }, []);
 
-  return (
-    <header className="site-header" data-state={state}>
-      <a className="site-brand" href="/concepts/" aria-label="Виктория Горбачева — все концепции сайта">
-        <span className="brand-kicker" aria-hidden="true">Тёплый сад</span>
-        <span className="brand-name">Виктория Горбачева</span>
-      </a>
+  function closeMenu() {
+    dialog.current?.close();
+    setOpen(false);
+    trigger.current?.focus();
+  }
 
-      <nav className="desktop-nav" aria-label="Основные разделы">
-        <ul>
-          {sections.map((item) => (
-            <li key={item.href}>
-              <a href={item.href}>{item.label}</a>
-            </li>
-          ))}
-        </ul>
+  function follow(event: MouseEvent<HTMLAnchorElement>, id: SectionId) {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    dialog.current?.close();
+    setOpen(false);
+    const group = event.currentTarget.closest("details");
+    if (group) group.open = false;
+    document.getElementById(id)?.focus({ preventScroll: true });
+    setActive(id);
+  }
+  function link(id: SectionId) {
+    return <a key={id} href={"#" + id} aria-current={active === id ? "location" : undefined} onClick={event => follow(event,id)}>{names[id]}</a>;
+  }
+  return <header className="site-header" data-scrolled={scrolled} ref={header}>
+    <a className="garden-skip" href="#home">К содержанию</a>
+    <div className="header-inner">
+      <a className="personal-logo" href="#home">Виктория Горбачева</a>
+      <nav className="desktop-nav" aria-label="Основная навигация">
+        {groups.map(group => <details key={group.title} className="nav-group" name="garden-navigation">
+          <summary data-active={group.items.includes(active)}>{group.title}</summary>
+          <div>{group.items.map(link)}</div>
+        </details>)}
+        {link("contacts")}
       </nav>
-
-      <div className="header-actions">
-        <a className="header-cta" href={bookingHref} {...externalLink}>
-          {booking.label}
-        </a>
-        <button
-          ref={toggleRef}
-          className="menu-toggle"
-          type="button"
-          aria-expanded={open}
-          aria-controls="site-menu"
-          aria-label={open ? "Закрыть меню" : "Открыть меню"}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="menu-icon" aria-hidden="true" />
-        </button>
+      <a href={bookingHref} className="header-book">Записаться</a>
+      <button type="button" className="menu-trigger" ref={trigger} aria-label="Открыть меню" aria-haspopup="dialog" aria-controls="garden-menu" aria-expanded={open} onClick={() => {dialog.current?.showModal();setOpen(true);}}>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+      </button>
+      <noscript><style>{".practice .menu-trigger {display:none}"}</style><details className="fallback-menu"><summary>Меню</summary><nav aria-label="Разделы">{sections.map(([id,label])=><a key={id} href={"?section="+id+"#"+id}>{label}</a>)}</nav></details></noscript>
+    </div>
+    <dialog id="garden-menu" ref={dialog} aria-labelledby="menu-title" onClose={() => setOpen(false)} onClick={event=>{if(event.target === dialog.current) closeMenu();}} onCancel={event=>{event.preventDefault();closeMenu();}} onKeyDown={event=>{if(event.key === "Escape"){event.preventDefault();closeMenu();}}}>
+      <div className="menu-sheet"><div className="menu-title"><h2 id="menu-title">Разделы сайта</h2><button type="button" autoFocus onClick={closeMenu}>Закрыть</button></div>
+        <nav aria-label="Мобильная навигация">{sections.map(([id])=>link(id))}</nav>
       </div>
-
-      <div
-        ref={panelRef}
-        id="site-menu"
-        className="mobile-panel"
-        data-open={open}
-        inert={!open}
-        aria-hidden={!open}
-      >
-        <nav aria-label="Мобильное меню разделов">
-          <ul>
-            {sections.map((item) => (
-              <li key={item.href}>
-                <a href={item.href} onClick={closeMenu}>{item.label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <a className="panel-cta" href={bookingHref} onClick={closeMenu} {...externalLink}>
-          Записаться на консультацию
-        </a>
-      </div>
-    </header>
-  );
+    </dialog>
+  </header>;
 }

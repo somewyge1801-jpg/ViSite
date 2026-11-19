@@ -4,6 +4,8 @@ import type { ReactNode } from "react";
 import copy from "@/content/practice.json";
 import { settings, bookingHref } from "@/content/settings";
 import "./practice.css";
+import "./navigation.css";
+import { SiteHeader } from "@/components/site-header";
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return <section id={id} tabIndex={-1} className="chapter"><h2>{title}</h2><div className="chapter-body">{children}</div></section>;
@@ -15,6 +17,7 @@ function Booking() { return <a className="garden-action" href={bookingHref}>{cop
 
 export default function Home() {
   return <div className="practice">
+    <SiteHeader />
     <main id="content">
       <section id="home" tabIndex={-1} className="garden-hero">
         <Image src={settings.garden} fill preload sizes="100vw" alt="Солнечная дорожка уходит в глубину цветущего сада" />
