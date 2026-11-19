@@ -1,21 +1,25 @@
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { concepts, conceptIds } from "@/lib/concepts";
 
-export default function HomePage() {
-  return (
-    <main className="mx-auto w-full max-w-3xl px-6 py-20 sm:px-10 sm:py-28">
-      <h1 className="font-serif text-5xl leading-tight sm:text-7xl">Тёплый сад</h1>
-      <p className="mt-5 max-w-prose text-lg text-muted-foreground">
-        Прототип сайта психолога.
-      </p>
-      <Button asChild className="mt-8">
-        <a href="#about">О проекте</a>
-      </Button>
-      <section id="about" className="mt-16 scroll-mt-8 border-t border-border pt-8">
-        <h2 className="font-serif text-3xl">О проекте</h2>
-        <p className="mt-3 max-w-prose text-muted-foreground">
-          Здесь появится информация о психологе, консультациях и записи на встречу.
-        </p>
-      </section>
-    </main>
-  );
+export default function Comparison() {
+  return <main className="gallery">
+    <header className="gallery-mast"><span className="wordmark">Тёплый сад</span><span>Виктория Горбачева · психолог</span></header>
+    <div className="gallery-title"><h1>Три взгляда на сад</h1><p>Откройте первый экран в каждом варианте и выберите направление для сайта.</p></div>
+    <div className="plates">
+      {conceptIds.map((id) => <article className={"plate plate-" + id} key={id}>
+        <a className="plate-link" href={"/concept-" + id + "/"}>
+          <div className="plate-art"><Image src={"/garden/" + id + ".webp"} alt="" fill sizes="(max-width: 740px) 100vw, 33vw" /></div>
+          <h2><span>{id.toUpperCase()}</span>{concepts[id].name}</h2>
+        </a>
+        <p>{concepts[id].note}</p>
+        <div className="plate-actions"><a href={"/concept-" + id + "/"} aria-label={"Открыть " + concepts[id].name}>Открыть экран</a><a href={"#choice-" + id} aria-label={"Выбрать " + concepts[id].name}>Выбрать</a></div>
+      </article>)}
+    </div>
+    <p className="gallery-caption">Изображения временные. В редакционном варианте ботанический этюд обозначает место для портрета Виктории.</p>
+    {conceptIds.map(id => <section key={id} id={"choice-" + id} tabIndex={-1} className="choice-result">
+      <h2>Вы выбрали «{concepts[id].name}»</h2>
+      <p>Сохраните адрес этой страницы, чтобы вернуться к выбору.</p>
+      <a href={"/concept-" + id + "/"}>Посмотреть выбранный экран</a> <a href="/">Сбросить выбор</a>
+    </section>)}
+  </main>;
 }

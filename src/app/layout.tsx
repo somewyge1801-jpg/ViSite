@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import "./globals.css";
+import "./fonts.css";
+import "./concepts.css";
 
 export const metadata: Metadata = {
   title: "Тёплый сад",
