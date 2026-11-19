@@ -9,19 +9,17 @@
 .gallery a:focus-visible, .prototype :focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
 .wordmark { font: 600 2.25rem/1 "Cormorant Garamond", Georgia, serif; letter-spacing: -.045em; }
 .gallery { min-height: 100svh; padding: 0 clamp(1.25rem,5vw,6rem) 3rem; }
-.gallery-mast, .folio, .foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.gallery-mast, .foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
 .gallery-mast { border-bottom: 1px solid #b6beb1; min-height: 5.5rem; }
-.gallery-mast > :last-child, .folio, figcaption, .gallery-caption { font-size: .875rem; }
+.gallery-mast > :last-child, figcaption, .gallery-caption { font-size: .875rem; }
 .gallery-title { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding: clamp(2.5rem,6vw,6rem) 0 2.7rem; }
 .gallery-title h1 { font: 500 clamp(3.4rem,7.8vw,8rem)/.96 "Cormorant Garamond", Georgia, serif; letter-spacing: -.055em; }
 .gallery-title p { max-width: 22rem; }
 .plates { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(1.2rem,2.7vw,3rem); }
 .plate { display: flex; flex-direction: column; align-items: stretch; }
 .plate-link { display: block; }
-.plate-art { position: relative; aspect-ratio: 1.28; background: #dde2cf; }
-.plate-art img, .scene-image img { object-fit: cover; }
-.plate-a .plate-art { border-radius: 48% 48% 0 0; overflow: hidden; }
-.plate-c .plate-art { border-radius: 3rem 0; overflow: hidden; }
+.plate-art { position: relative; aspect-ratio: 1.6; outline: 1px solid #c9ccc1; background: #dde2cf; }
+.plate-art img { object-fit: cover; }
 .plate h2 { display: flex; gap: .65rem; align-items: baseline; margin: 1.1rem 0 .5rem; font: 600 clamp(1.65rem,2.45vw,2.6rem)/1.08 "Cormorant Garamond", Georgia, serif; }
 .plate h2 span { font: 500 .85rem Rubik, sans-serif; }
 .plate p { max-width: 40ch; margin-bottom: 1.2rem; }
@@ -32,82 +30,97 @@
 .choice-result:target,.booking-note:target { display: block; }
 .choice-result h2,.booking-note h2 { font-size: 1.5rem; font-weight: 550; }
 .choice-result a { margin-right: 1.5rem; }
-.prototype { display: grid; grid-template-columns: clamp(10.5rem,14.5vw,15rem) minmax(0,1fr); min-height: 100svh; }
-.rail { display: flex; flex-direction: column; align-items: flex-start; padding: 2.1rem 1.4rem; background: var(--rail); color: var(--rail-ink); }
-.rail-nav { margin: auto 0; padding: 3rem 0; }
-.rail nav { display: grid; }
-.rail nav a,.mobile-menu summary { padding: .65rem 0; min-height: 44px; display: flex; align-items: center; }
-.rail nav a:hover,.foot a:hover,.plate a:hover,.booking-note a:hover { text-decoration: underline; }
-.rail nav a:nth-last-child(2) { border-top: 1px solid currentColor; margin-top: 1rem; padding-top: 1.2rem; }
-.rail-credit { font-size: .8rem; max-width: 17ch; }
+.prototype { min-height: 100svh; display: flex; flex-direction: column; }
+.prototype main { flex: 1; }
+.prototype h1 { text-wrap: balance; }
+.topbar,.foot { padding-inline: clamp(1.2rem,5vw,6rem); }
+.topbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; min-height: 4.7rem; border-bottom: 1px solid var(--line); position: relative; }
+.topbar nav { display: flex; gap: clamp(1rem,3vw,3.5rem); }
+.topbar nav a,.mobile-menu summary { display: flex; align-items: center; min-height: 44px; }
+.topbar a:hover,.booking-note a:hover { text-decoration: underline; }
 .mobile-menu { display: none; }
-.skip-link { position: absolute; top: .5rem; left: .5rem; z-index: 2; padding: .5rem; background: white; color: black; transform: translateY(-180%); }
+.skip-link { position: absolute; z-index: 3; transform: translateY(-150%); background: white; color: black; padding: .6rem; }
 .skip-link:focus { transform: none; }
-.canvas { min-width: 0; display: flex; flex-direction: column; padding: 0 clamp(1.5rem,3.8vw,5rem); }
-.folio { border-bottom: 1px solid var(--rule); min-height: 5.5rem; }
-.hero-layout { flex: 1; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.05fr); grid-template-areas: "title art" "copy art"; align-content: center; column-gap: clamp(1.5rem,3vw,3.5rem); padding: 2.6rem 0; }
-.hero-layout h1 { grid-area: title; align-self: end; text-wrap: balance; font: 600 clamp(3.5rem,5.5vw,6.25rem)/.99 "Cormorant Garamond", Georgia, serif; letter-spacing: -.047em; }
-.scene { grid-area: art; align-self: center; }
-.scene-image { position: relative; aspect-ratio: .93; overflow: hidden; }
-.scene figcaption { margin-top: .55rem; }
-.hero-copy { grid-area: copy; align-self: start; max-width: 48ch; }
-.hero-copy p { margin-top: .9rem; }
-.hero-copy .lead { margin-top: 1.4rem; font-size: clamp(1.06rem,1.35vw,1.3rem); line-height: 1.5; }
-.prototype .booking-cta { margin-top: 1.65rem; min-height: 3.15rem; padding: .8rem 1.4rem; font: 500 1rem/1.4 Rubik,sans-serif; color: var(--action-text); background: var(--action); border-radius: 2rem; }
+.foot { padding-block: .5rem; border-top: 1px solid var(--line); font-size: .9rem; }
+.art { margin: 0; }
+.image-frame { position: relative; }
+.image-frame img { object-fit: cover; }
+.art figcaption { font-size: .79rem; line-height: 1.35; }
+.prototype .booking-cta { font: 500 1rem/1.4 Rubik,sans-serif; min-height: 3.15rem; padding: .8rem 1.4rem; color: var(--button-text); background: var(--button); }
 .prototype .booking-cta:hover { text-decoration: underline; }
-.prototype .terms { font-size: .94rem; text-wrap: balance; }
-.scene-image picture img { width: 100%; height: 100%; position: absolute; inset: 0; }
-.foot { padding: .6rem 0; border-top: 1px solid var(--rule); font-size: .9rem; }
-.booking-note a { display: inline-block; padding: .75rem 0; text-decoration: underline; }
-.theme-a { --paper: #f8f5e9; --ink: #304738; --rail: #dce6c9; --rail-ink: #334733; --action: #35573e; --action-text: #fffef0; --rule: #abb59f; }
-.theme-a .scene-image { border-radius: 48% 48% 2px 2px; aspect-ratio: .84; }
-.theme-b { --paper: #fbf6f1; --ink: #392b2c; --rail: #e9d5cf; --rail-ink: #463135; --action: #602f3a; --action-text: #fff5f0; --rule: #b29996; }
-.theme-b .hero-layout { grid-template-columns: minmax(0,.83fr) minmax(0,1fr); grid-template-areas: "art title" "art copy"; }
-.theme-b .hero-layout h1 { font-size: clamp(4rem,6.7vw,7.6rem); line-height: .88; font-weight: 500; }
-.theme-b .scene-image { aspect-ratio: .75; border: .55rem solid #fff; box-shadow: 0 0 0 1px #cbbcb2; }
-.theme-b .booking-cta { border-radius: .2rem; }
-.theme-c { --paper: #253f39; --ink: #f5f6ea; --rail: #1b302b; --rail-ink: #e7efdf; --action: #d9f39a; --action-text: #20392c; --rule: #738b7e; }
-.theme-c .hero-layout { grid-template-columns: minmax(0,1.08fr) minmax(0,1fr); }
-.theme-c .hero-layout h1 { font: 500 clamp(3rem,4.6vw,5.5rem)/1.02 Rubik,sans-serif; letter-spacing: -.065em; }
-.theme-c .scene-image { border-radius: 40% 1.5rem 40% 1.5rem; background: #d7d2e8; }
-@media (min-width: 761px) and (max-width: 1020px) {
-  .prototype { grid-template-columns: 9rem minmax(0,1fr); }
-  .rail { padding-inline: 1rem; }
-  .hero-layout,.theme-b .hero-layout,.theme-c .hero-layout { grid-template-columns: minmax(0,1fr) minmax(0,.85fr); }
-  .hero-layout h1,.theme-b .hero-layout h1 { font-size: 3.3rem; }
-  .theme-c .hero-layout h1 { font-size: 2.8rem; }
+.terms { margin-top: .65rem; font-size: .92rem; text-wrap: balance; }
+.booking-note { margin-inline: clamp(1rem,5vw,6rem); }
+.booking-note a { display: inline-block; padding-block: .75rem; text-decoration: underline; }
+.theme-a { --paper: #f8f5e9; --ink: #304738; --line: #abb59f; --button: #35573e; --button-text: #fffef0; }
+.landscape { position: relative; isolation: isolate; display: flex; align-items: end; padding: clamp(2rem,5vw,6rem); min-height: calc(100svh - 4.7rem); }
+.landscape .art,.landscape .image-frame { position: absolute; inset: 0; }
+.landscape .art { z-index: 0; }
+.landscape img { object-position: center 60%; }
+.landscape figcaption { position: absolute; right: 1rem; bottom: .8rem; background: #f8f5e9; padding: .25rem .6rem; }
+.field-note { position: relative; z-index: 1; width: min(100%,32rem); background: #faf8eefa; padding: clamp(1.5rem,3vw,3rem); border-radius: 2px 3.5rem 2px 2px; box-shadow: 0 6px 32px #35463720; }
+.field-note h1 { font: 600 clamp(3rem,4.6vw,5rem)/.96 "Cormorant Garamond",Georgia,serif; letter-spacing: -.045em; }
+.field-note p:not(.terms) { margin-top: 1rem; }
+.field-note .lead { font-size: 1.12rem; }
+.field-note .action-block { margin-top: 1.4rem; }
+.field-note .booking-cta { border-radius: 3rem; }
+.theme-b { --paper: #fbf9f5; --ink: #422c32; --line: #af9f99; --button: #502531; --button-text: #fff9f6; }
+.editorial { max-width: 95rem; margin: auto; padding: 2rem clamp(1.2rem,5vw,6rem) 3rem; }
+.editorial h1 { font: 500 clamp(4rem,8.5vw,9.2rem)/.94 "Cormorant Garamond",Georgia,serif; letter-spacing: -.055em; text-align: center; padding: .25em 0 .35em; border-bottom: 4px double var(--line); }
+.spread { display: grid; grid-template-columns: 1fr 1.12fr 1fr; align-items: center; gap: clamp(1.25rem,3vw,4rem); margin-top: 2rem; }
+.standfirst { font: 500 clamp(1.65rem,2.65vw,2.85rem)/1.16 "Cormorant Garamond",Georgia,serif; }
+.standfirst::first-letter { float: left; font-size: 2.6em; line-height: .8; padding-right: .08em; }
+.editorial .image-frame { height: clamp(16rem,34vw,26rem); }
+.editorial figcaption { margin-top: .5rem; }
+.author-column { border-top: 1px solid var(--line); padding-top: 1.1rem; }
+.author-column .action-block { margin-top: 1.6rem; }
+.author-column .booking-cta { border-radius: 0; }
+.theme-c { --paper: #e3daed; --ink: #27392f; --line: #9d9aaf; --button: #284236; --button-text: #f7ffe8; }
+.botanical { text-align: center; padding: clamp(1.4rem,3vw,3.5rem) clamp(1.25rem,4vw,5rem) 2.2rem; }
+.botanical h1 { max-width: 18ch; margin: auto; font: 550 clamp(3rem,6vw,6.35rem)/.95 Rubik,Arial,sans-serif; letter-spacing: -.07em; }
+.specimen { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr); align-items: center; gap: 2.5rem; max-width: 76rem; margin: .7rem auto 1.1rem; }
+.specimen p { text-align: left; max-width: 30ch; }
+.left-label { justify-self: end; }
+.specimen p::before { content: ""; display: block; height: 2px; width: 2.5rem; background: #5d7362; margin-bottom: 1rem; }
+.botanical .image-frame { aspect-ratio: 1.12; }
+.botanical img { border-radius: 48% 48% 45% 45%; }
+.botanical figcaption { margin-top: .35rem; }
+.botanical .booking-cta { border-radius: 3rem; }
+@media (max-width: 850px) {
+  .spread { grid-template-columns: .9fr 1fr 1.1fr; gap: 1rem; }
+  .author-column .booking-cta { white-space: normal; text-align: center; }
+  .specimen { gap: 1rem; }
 }
-@media (max-width: 760px) {
+@media (max-width: 700px) {
   .gallery-mast { min-height: 4.3rem; }
   .gallery-mast > :last-child { max-width: 14ch; text-align: right; font-size: .75rem; }
   .gallery-title { display: block; }
   .gallery-title p { margin-top: 1rem; }
   .plates { grid-template-columns: 1fr; gap: 2.5rem; }
-  .plate-art { aspect-ratio: 1.65; }
-  .prototype { display: block; }
-  .rail { display: grid; grid-template-columns: 1fr auto; align-items: start; padding: .65rem 1.2rem; }
-  .rail .wordmark { padding: .4rem 0; }
-  .rail-nav,.rail-credit { display: none; }
+  .topbar { display: block; padding-block: .7rem; min-height: 3.7rem; }
+  .topbar .wordmark { display: inline-flex; min-height: 44px; align-items: center; }
+  .top-nav { display: none; }
   .mobile-menu { display: block; }
-  .mobile-menu summary { justify-content: end; cursor: pointer; }
-  .mobile-menu summary::after { content: "＋"; margin-inline-start: .45rem; }
+  .mobile-menu summary { cursor: pointer; position: absolute; right: 1.2rem; top: .7rem; gap: .5rem; }
+  .mobile-menu summary::after { content: "＋"; }
   .mobile-menu[open] summary::after { content: "−"; }
-  .mobile-menu[open] { grid-column: 1/-1; }
-  .mobile-menu[open] nav { padding-bottom: .8rem; }
-  .canvas { padding: 0 1.25rem; }
-  .folio { min-height: 3.25rem; }
-  .hero-layout,.theme-b .hero-layout,.theme-c .hero-layout { grid-template-columns: minmax(0,1fr); grid-template-areas: "title" "art" "copy"; padding: 1.45rem 0 2rem; }
-  .hero-layout h1,.theme-b .hero-layout h1 { font-size: clamp(3.05rem,10vw,5rem); }
-  .theme-c .hero-layout h1 { font-size: clamp(2.7rem,9vw,4.5rem); }
-  .scene { margin-top: 1.15rem; }
-  .scene .scene-image { aspect-ratio: 2.65; border-radius: 0; }
-  .theme-a .scene-image { border-radius: 5rem 5rem 0 0; }
-  .theme-b .scene-image img { object-position: 50% 38%; }
-  .theme-c .scene-image { border-radius: 3rem .5rem; }
-  .theme-c .scene-image img { object-fit: contain; }
-  .scene figcaption { font-size: .78rem; }
-  .hero-copy { max-width: 60ch; }
-  .foot { flex-wrap: wrap; }
+  .mobile-menu nav { flex-direction: column; gap: 0; padding-top: .5rem; }
+  .landscape { min-height: auto; display: block; padding: 10.5rem 1rem 2.6rem; }
+  .landscape img { object-position: 59% center; }
+  .field-note { margin: auto; padding: 1.25rem; }
+  .field-note h1 { font-size: clamp(2.8rem,9vw,4rem); }
+  .field-note .lead { font-size: 1rem; }
+  .editorial { padding-top: .8rem; }
+  .editorial h1 { text-align: left; font-size: clamp(3.6rem,12vw,5.5rem); }
+  .spread { grid-template-columns: 1fr 1fr; margin-top: 1.25rem; align-items: start; }
+  .standfirst { align-self: center; font-size: clamp(1.4rem,4.5vw,2rem); }
+  .editorial .image-frame { height: auto; aspect-ratio: .76; }
+  .author-column { grid-column: 1/-1; }
+  .author-column .action-block { margin-top: 1rem; }
+  .botanical h1 { font-size: clamp(2.6rem,9vw,4rem); }
+  .specimen { grid-template-columns: repeat(2,minmax(0,1fr)); margin: .7rem auto 1.3rem; max-width: 35rem; }
+  .specimen .art { grid-row: 1; grid-column: 1/-1; width: min(58vw,15rem); justify-self: center; }
+  .specimen p { font-size: .95rem; align-self: start; }
+  .specimen p::before { margin-bottom: .5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .prototype *, .gallery * { scroll-behavior: auto; transition: none; animation: none; }

@@ -8,7 +8,7 @@ export default function Comparison() {
     <div className="plates">
       {conceptIds.map((id) => <article className={"plate plate-" + id} key={id}>
         <a className="plate-link" href={"/concept-" + id + "/"}>
-          <div className="plate-art"><Image src={"/garden/" + id + ".webp"} alt="" fill sizes="(max-width: 740px) 100vw, 33vw" /></div>
+          <div className="plate-art"><Image src={"/garden/preview-" + id + ".webp"} alt="" fill sizes="(max-width: 740px) 100vw, 33vw" /></div>
           <h2><span>{id.toUpperCase()}</span>{concepts[id].name}</h2>
         </a>
         <p>{concepts[id].note}</p>
