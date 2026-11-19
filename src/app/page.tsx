@@ -3,31 +3,32 @@ import { GardenCover } from "@/components/garden-cover";
 import type { ReactNode } from "react";
 import copy from "@/content/practice.json";
 import { settings, bookingHref } from "@/content/settings";
+import { withBasePath } from "@/lib/base-path";
 import "./practice.css";
 import "./navigation.css";
 import { SiteHeader } from "@/components/site-header";
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
-  return <section id={id} tabIndex={-1} className="chapter"><div className="chapter-heading"><h2>{title}</h2>{id === "approach" && <figure className="garden-specimen"><Image src={settings.sculpture} width={400} height={400} alt="Объёмная ботаническая композиция с листьями и бутонами" /><figcaption>Эскиз объёмного сада</figcaption></figure>}</div><div className="chapter-body">{children}</div></section>;
+  return <section id={id} tabIndex={-1} className="chapter"><div className="chapter-heading"><h2>{title}</h2>{id === "approach" && <figure className="garden-specimen"><Image src={withBasePath(settings.sculpture)} width={400} height={400} alt="Объёмная ботаническая композиция с листьями и бутонами" /><figcaption>Эскиз объёмного сада</figcaption></figure>}</div><div className="chapter-body">{children}</div></section>;
 }
 function Paragraphs({ lines }: { lines: string[] }) {
   return lines.map(line => <p key={line}>{line}</p>);
 }
-function Booking() { return <a className="garden-action" href={bookingHref}>{copy.hero.cta}</a>; }
+function Booking() { return <a className="garden-action" href={withBasePath(bookingHref)}>{copy.hero.cta}</a>; }
 
 export default function Home() {
   return <div className="practice">
     <SiteHeader />
     <main id="content">
       <section id="home" tabIndex={-1} className="garden-hero">
-        <Image src={settings.garden} fill preload sizes="100vw" alt="Солнечная дорожка уходит в глубину цветущего сада" />
+        <Image src={withBasePath(settings.garden)} fill preload sizes="100vw" alt="Солнечная дорожка уходит в глубину цветущего сада" />
         <div className="garden-letter"><p className="signature">Тёплый сад</p><h1>{copy.hero.title}</h1>
           <p>{copy.hero.lead}</p><p>{copy.hero.intro}</p><Booking/><p className="price-line">{copy.hero.terms}</p>
         </div>
       </section>
       <div className="chapters">
         <Section id="about" title="Обо мне"><div className="bio">
-          <figure><Image src={settings.portrait || settings.botanical} alt={settings.portrait ? "Виктория Горбачева" : "Ботанический этюд с цветком анемоны"} width={420} height={600}/><figcaption>{settings.portrait ? "Виктория Горбачева" : "Ботанический этюд на месте будущего портрета"}</figcaption></figure>
+          <figure><Image src={withBasePath(settings.portrait || settings.botanical)} alt={settings.portrait ? "Виктория Горбачева" : "Ботанический этюд с цветком анемоны"} width={420} height={600}/><figcaption>{settings.portrait ? "Виктория Горбачева" : "Ботанический этюд на месте будущего портрета"}</figcaption></figure>
           <div><Paragraphs lines={copy.about}/></div></div></Section>
         <Section id="education" title="Образование"><Paragraphs lines={copy.educationIntro}/><ol className="education-list">{copy.education.map(item=><li key={item}>{item}</li>)}</ol>
           <h3>{copy.supervision.title}</h3><Paragraphs lines={copy.supervision.body}/>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { bookingHref, sections } from "@/content/settings";
+import { withBasePath } from "@/lib/base-path";
 
 type SectionId = typeof sections[number][0];
 const names = Object.fromEntries(sections);
@@ -114,7 +115,7 @@ export function SiteHeader() {
         </details>)}
         {link("contacts")}
       </nav>
-      <a href={bookingHref} className="header-book">Записаться</a>
+      <a href={withBasePath(bookingHref)} className="header-book">Записаться</a>
       <button type="button" className="menu-trigger" ref={trigger} aria-label="Открыть меню" aria-haspopup="dialog" aria-controls="garden-menu" aria-expanded={open} onClick={() => {dialog.current?.showModal();setOpen(true);}}>
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
       </button>

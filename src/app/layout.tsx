@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { siteOrigin } from "@/lib/origin";
+import { withBasePath } from "@/lib/base-path";
 
 import "./globals.css";
 import "./fonts.css";
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   title: "Виктория Горбачева — психолог в Саратове и онлайн | Тёплый сад",
   description: "Индивидуальные консультации психолога Виктории Горбачевой для взрослых и подростков от 16 лет. Онлайн и очно в Саратове.",
   robots: { index: Boolean(siteOrigin), follow: Boolean(siteOrigin) },
-  openGraph: siteOrigin ? { type: "website", locale: "ru_RU", images: ["/garden/a.webp"] } : undefined,
+  openGraph: siteOrigin ? { type: "website", locale: "ru_RU", images: [withBasePath("/garden/a.webp")] } : undefined,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

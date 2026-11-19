@@ -13,6 +13,12 @@
 
 Node.js 24, npm, Next.js App Router. Установка — `npm ci --ignore-scripts`. Локальный просмотр — `npm run dev`. Проверки — `npm run typecheck` и `npm run build`. Для статического сервера используется каталог `out/`. Параметры Timeweb App Platform Frontend — корень репозитория, Node.js 24, сборка npm run build, выход out, SSR выключен.
 
+## Публикация на GitHub Pages
+
+Рабочая ссылка для отправки клиентам — `https://<логин>.github.io/ViSite/`. Публикация выполняется автоматически: workflow `.github/workflows/deploy-pages.yml` собирает проект при каждом пуше в `main` и выкладывает каталог `out/` (источник Pages — GitHub Actions, в настройках репозитория выбран режим «GitHub Actions»).
+
+Проект живёт по подпути `/ViSite/`, поэтому сборка получает переменную `NEXT_PUBLIC_BASE_PATH` — она задаётся в workflow как `/${{ github.event.repository.name }}`. Она включает `basePath` в `next.config.ts` и префиксует абсолютные ссылки и картинки (`src/lib/base-path.ts`). Для корневого домена переменную не задавайте. Файл `out/.nojekyll` добавляется на этапе публикации, иначе GitHub Pages скрывает каталог `_next`.
+
 ## Редактирование
 
 - `src/content/practice.json` содержит согласованные публичные тексты из разделов 8–12 ТЗ. При изменении условий обновите все связанные формулировки, в том числе первый экран и FAQ.

@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { concepts, hero, type ConceptId } from "@/lib/concepts";
+import { withBasePath } from "@/lib/base-path";
 
 function Navigation() {
   return <nav aria-label="Навигация первого экрана">
     <a href="#terms">Формат и цена</a>
     <a href="#booking">Запись</a>
-    <a href="/concepts/">Все концепции</a>
+    <a href={withBasePath("/concepts/")}>Все концепции</a>
   </nav>;
 }
 
@@ -19,7 +20,7 @@ function BookingAction() {
 
 function Artwork({ id, sizes }: { id: ConceptId; sizes: string }) {
   return <figure className="art">
-    <div className="image-frame"><Image src={"/garden/" + id + ".webp"} alt={concepts[id].alt} fill preload sizes={sizes} /></div>
+    <div className="image-frame"><Image src={withBasePath("/garden/" + id + ".webp")} alt={concepts[id].alt} fill preload sizes={sizes} /></div>
     <figcaption>{concepts[id].caption}</figcaption>
   </figure>;
 }
@@ -65,7 +66,7 @@ export function ConceptScreen({ id }: { id: ConceptId }) {
   return <div className={"prototype theme-" + id}>
     <a className="skip-link" href="#hero">К содержанию</a>
     <header className="topbar">
-      <a href="/concepts/" className="wordmark">Тёплый сад</a>
+      <a href={withBasePath("/concepts/")} className="wordmark">Тёплый сад</a>
       <div className="top-nav"><Navigation /></div>
       <details className="mobile-menu"><summary>Меню</summary><Navigation /></details>
     </header>
@@ -79,6 +80,6 @@ export function ConceptScreen({ id }: { id: ConceptId }) {
         <a href="#hero">Вернуться к первому экрану</a>
       </section>
     </main>
-    <footer className="foot"><a href="/concepts/">Сравнить концепции</a><a href={"/concepts/#choice-" + id}>Выбрать вариант {id.toUpperCase()}</a></footer>
+    <footer className="foot"><a href={withBasePath("/concepts/")}>Сравнить концепции</a><a href={withBasePath("/concepts/#choice-" + id)}>Выбрать вариант {id.toUpperCase()}</a></footer>
   </div>;
 }
