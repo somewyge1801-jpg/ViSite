@@ -1,0 +1,39 @@
+.practice { --ink:#283e32; --paper:#fbf8ed; --green:#344f3a; --serif:"Cormorant Garamond",Georgia,serif; color:var(--ink); background:var(--paper); font:400 1.02rem/1.62 Rubik,Arial,sans-serif; }
+.practice :focus-visible { outline:3px solid #97491e; outline-offset:3px; }
+.practice .garden-hero { position:relative; isolation:isolate; padding:clamp(1.5rem,4vw,5rem) clamp(1.25rem,7vw,9rem); min-height:min(47rem,83svh); display:flex; align-items:center; }
+.garden-hero>img { object-fit:cover; object-position:55% 62%; }
+.garden-letter { position:relative; max-width:35rem; padding:clamp(1.5rem,3.3vw,3.6rem); border-radius:2px 4.5rem 2px 2px; background:#fcfaeffa; }
+.garden-letter .signature { color:#5a6346; font:600 1.4rem var(--serif); margin:0 0 .65rem; }
+.garden-letter h1 {font:600 clamp(3.3rem,5vw,5.45rem)/.94 var(--serif);letter-spacing:-.045em;text-wrap:balance;}
+.garden-letter p {margin-top:1rem;}
+.practice a {text-underline-offset:.24em;}
+.practice .garden-action,.product button {display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.7rem 1.4rem;border-radius:2rem;background:#354f39;color:white;text-align:center;line-height:1.4;font-weight:500;}
+.garden-letter .garden-action,.service-sheet .garden-action {margin-top:1.2rem;}
+.garden-letter .price-line,.practice figcaption,.quiet {font-size:.89rem;color:#526050;text-wrap:balance;}
+.chapters {max-width:90rem;margin:auto;padding-inline:clamp(1.25rem,7vw,9rem);}
+.chapter {padding-block:clamp(2.8rem,6vw,6rem);border-bottom:1px solid #c6cbb9;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,2fr);gap:clamp(1.2rem,4vw,5rem);}
+.chapter h2 {font:600 clamp(2.6rem,4vw,4.7rem)/1 var(--serif);letter-spacing:-.04em;}
+.chapter h3,.booking-note h2 {font:600 clamp(1.65rem,2.2vw,2.35rem)/1.1 var(--serif);margin:1.7rem 0 .8rem;}
+.chapter-body>h3:first-child,.product h3,.service-sheet h3 {margin-top:0;}
+.chapter-body p+p,.chapter-body li+li {margin-top:.85rem;}
+.chapter-body p {max-width:68ch;}
+.bio {display:grid;grid-template-columns:minmax(8rem,.68fr) minmax(0,1.2fr);gap:1.6rem;}
+.bio img {width:100%;border-radius:6rem 6rem 0 0;}
+.practice figcaption {margin-top:.5rem;}
+.education-list,.requests {margin:1.4rem 0;padding:0;list-style:none;}
+.education-list li,.requests li {padding:1rem 0;border-top:1px solid #c5cbb8;}
+.service-sheet {background:#e0e8d5;padding:clamp(1.4rem,3vw,3rem);border-radius:0 3rem 0 0;}
+.chapter details {border-bottom:1px solid #c7caba;}
+.chapter summary {padding:.95rem .25rem;min-height:44px;cursor:pointer;font-weight:500;}
+.chapter details p {margin:0 0 1rem;}
+.product-pair {display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.cover-study {aspect-ratio:1.5;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:1.25rem;background:#ead6ce;color:#513b37;border-left:6px double #a77968;margin-bottom:1rem;}
+.cover-study span {font:600 clamp(1.8rem,3vw,3rem)/1 var(--serif);}
+.product-cards .cover-study {background:#dae7e6;color:#30494d;border-left:0;border-radius:1rem;border-bottom:5px double #789b9a;}
+.product button {background:#deded4;color:#51574a;margin-top:1rem;}
+.chapter-body a,.garden-footer a {text-decoration:underline;}
+.chapter-body .garden-action {text-decoration:none;}
+.garden-footer {padding:2rem clamp(1.25rem,7vw,9rem);display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;background:#e6ebdc;}
+@media(max-width:850px){.chapter {grid-template-columns:minmax(0,1fr);} .bio {grid-template-columns:minmax(0,.65fr) minmax(0,1.35fr);}}
+@media(max-width:600px){.practice .garden-hero {align-items:start;padding:1rem .85rem 5rem;min-height:0;} .garden-letter {padding:1.3rem;background:#fcfaeff5;max-width:23rem;margin-left:0;} .garden-letter h1 {font-size:clamp(2.8rem,11vw,3.7rem);} .garden-letter p {margin-top:.65rem;} .bio,.product-pair {display:block;} .bio figure {width:55%;margin-bottom:1.3rem;} .product+.product {margin-top:2.5rem;}.garden-footer {gap:1rem;}}
+@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){.practice .garden-action {transition:background-color .18s;} .practice .garden-action:hover {background:#496c4f;}.cover-study {transition:transform .25s;} .product:hover .cover-study {transform:rotate(-1deg);}}

@@ -6,7 +6,7 @@ function Navigation() {
   return <nav aria-label="Навигация первого экрана">
     <a href="#terms">Формат и цена</a>
     <a href="#booking">Запись</a>
-    <a href="/">Все концепции</a>
+    <a href="/concepts/">Все концепции</a>
   </nav>;
 }
 
@@ -65,7 +65,7 @@ export function ConceptScreen({ id }: { id: ConceptId }) {
   return <div className={"prototype theme-" + id}>
     <a className="skip-link" href="#hero">К содержанию</a>
     <header className="topbar">
-      <a href="/" className="wordmark">Тёплый сад</a>
+      <a href="/concepts/" className="wordmark">Тёплый сад</a>
       <div className="top-nav"><Navigation /></div>
       <details className="mobile-menu"><summary>Меню</summary><Navigation /></details>
     </header>
@@ -79,6 +79,6 @@ export function ConceptScreen({ id }: { id: ConceptId }) {
         <a href="#hero">Вернуться к первому экрану</a>
       </section>
     </main>
-    <footer className="foot"><a href="/">Сравнить концепции</a><a href={"/#choice-" + id}>Выбрать вариант {id.toUpperCase()}</a></footer>
+    <footer className="foot"><a href="/concepts/">Сравнить концепции</a><a href={"/concepts/#choice-" + id}>Выбрать вариант {id.toUpperCase()}</a></footer>
   </div>;
 }

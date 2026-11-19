@@ -5,6 +5,10 @@ export const concepts = {
 } as const;
 export type ConceptId = keyof typeof concepts;
 export const conceptIds: ConceptId[] = ["a", "b", "c"];
+export const booking = {
+  label: "Записаться",
+  telegramUrl: null as string | null,
+};
 export const hero = {
   title: "Место, где можно услышать себя",
   lead: "Когда тревожно, трудно или прежние ориентиры больше не помогают, можно искать свой путь вместе с проводником.",
